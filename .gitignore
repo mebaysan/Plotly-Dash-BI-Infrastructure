@@ -151,3 +151,4 @@ baysan_fetch_all.py
 *.pickle
 .Rhistory
 .env
+config.py
