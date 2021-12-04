@@ -1,0 +1,96 @@
+{% extends 'utilities/layout.jinja2' %} {% block custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static',filename='node_modules/datatables.net-dt/css/jquery.dataTables.min.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="section">
+  <div class="box">
+    <p class="title is-4">Kullanıcı Ekle</p>
+    <form method="post" action="/admin/users/add">
+      <div class="field">
+        <label class="label">Kullanıcı Adı</label>
+        <div class="control">
+          <input
+            type="text"
+            class="input is-success"
+            id="adminUsername"
+            name="username"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Parola</label>
+        <div class="control">
+          <input
+            type="password"
+            class="input is-success"
+            id="adminPassword"
+            name="password"
+          />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Admin mi?</label>
+        <div class="control">
+          <div class="select">
+            <select id="adminAdmin" name="is_admin">
+              <option value="False" selected>Hayır</option>
+              <option value="True">Evet</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="button is-primary">Kullanıcı Ekle</button>
+    </form>
+  </div>
+</section>
+
+<section class="section">
+  <div class="box">
+    <p class="title is-4">Kullanıcılar</p>
+  <table id="usersTable" class="table is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Kullanıcı Adı</th>
+        <th>Admin mi?</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td>{{ user.username }}</td>
+        <td>{% if user.is_admin %} Evet {% else %} Hayır {% endif %}</td>
+        <td>
+          <a
+            href="/admin/users/detail/{{ user.id }}"
+            class="button is-primary is-small"
+            >Detay</a
+          >
+        </td>
+        <td>
+          <form action="/admin/users/delete/{{ user.id }}" method="post">
+            <button type="submit" class="button is-danger is-small">Sil</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+{% endblock %} {% block custom_js %}
+<script src="{{ url_for('static',filename='node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    $("#usersTable").DataTable();
+  });
+</script>
+{% endblock %}

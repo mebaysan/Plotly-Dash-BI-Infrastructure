@@ -1,0 +1,38 @@
+{% extends 'utilities/layout.jinja2' %} {% block custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static',filename='node_modules/datatables.net-dt/css/jquery.dataTables.min.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="section">
+  <div class='box'>
+  <p class="title is-4">Login Logları</p>
+  <table id="logsTable" class="table is-hovered is-fullwidth">
+    <thead>
+      <tr>
+        <th>Kullanıcı Adı</th>
+        <th>Giriş Tarihi</th>
+        <th>Giriş Saati</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in query %}
+      <tr>
+        <td>{{ data[0] }}</td>
+        <td>{{ data[1] }}</td>
+        <td>{{ data[2] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+</section>
+
+{% endblock %} {% block custom_js %}
+<script src="{{ url_for('static',filename='node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    $("#logsTable").DataTable();
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "utilities/layout.jinja2" %}
+
+{% block content %}
+        <section class='section'> 
+         <div class='box'>
+         <p class="title is-2">BaysanSoft BI Software</p>
+        <p class="subtitle is-6">Based on Flask & Dash!</p>
+        <hr>
+        {% if current_user.is_anonymous %}
+        <a class="button is-primary" href="/login" role="button">Log in</a>
+        {% else %}
+        <a class="button is-danger" href="/logout" role="button">Log out</a>
+        {% endif %}
+        </div>
+        
+        </section>
+       
+   
+{% endblock %}

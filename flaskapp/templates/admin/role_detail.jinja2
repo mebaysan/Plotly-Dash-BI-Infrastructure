@@ -1,0 +1,48 @@
+{% extends 'utilities/layout.jinja2' %} {% block content %}
+<section class="section">
+<div class='box'>
+<p class='title is-4'> Rol Detayları </p>
+  <form method="post" action="/admin/roles/detail/{{ role.id }}">
+    <div class="field">
+      <label class="label">Rol Adı</label>
+      <div class="control">
+        <input
+          type="text"
+          class="input is-primary"
+          id="roleName"
+          name="newRoleName"
+          value="{{ role.name }}"
+        />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Kullanıcılar</label>
+      <div class="select is-multiple">
+        <select id="roleUsers" name="roleUsers" multiple>
+          {% for user in users %}
+          <option
+            value="{{ user.id }}"
+            {%
+            if
+            user
+            in
+            role.users
+            %}
+            selected
+            {%
+            endif
+            %}
+          >
+            {{ user.username }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="button is-primary">Rol Güncelle</button>
+  </form>
+  </div>
+</section>
+
+{% endblock %}

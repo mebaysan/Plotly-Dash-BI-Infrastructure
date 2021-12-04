@@ -1,0 +1,60 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" />
+    </a>
+
+    <a
+      role="button"
+      class="navbar-burger"
+      aria-label="menu"
+      aria-expanded="false"
+      data-target="navbarBasicExample"
+    >
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/"> Anasayfa </a>
+      {% if not current_user.is_anonymous %} {% if current_user.is_admin %}
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link"> Admin </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/admin/">Anasayfa</a>
+          <a class="navbar-item" href="/admin/users/">Kullanıcılar</a>
+          <a class="navbar-item" href="/admin/roles/">Roller</a>
+          <a class="navbar-item" href="/admin/login-logs/">Login Logları</a>
+        </div>
+      </div>
+      {% endif %}
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link"> Dashboardlar </a>
+        <div class="navbar-dropdown navbar-dropdown-custom">
+          {% for dashboard in get_dashboards %} {% if dashboard['APP_URL'] |
+          is_my_role %}
+          <a class="navbar-item" href="/dashboard/{{ dashboard['APP_URL'] }}">
+            {{ dashboard['APP_NAME'] }}
+          </a>
+          {% endif %} {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          {% if current_user.is_anonymous %}
+          <a class="button is-primary" href="/login"> Giriş </a>
+          {% else %}
+          <a class="button is-danger" href="/logout"> Çıkış </a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

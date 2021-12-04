@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- BaysanSoft was here :) -->
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>
+        {% if title %}
+            BaysanSoft Data Visualization Application | {{ title }}
+        {% else %}
+            BaysanSoft Data Visualization Application
+        {% endif %}
+    </title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}" type="image/x-icon"/>
+    <link rel="stylesheet" href="{{ url_for('static',filename='node_modules/bulma/css/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='Toast/Toast.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <script src="{{ url_for('static',filename='Toast/Toast.min.js') }}"></script>
+    {% block custom_css %}
+
+    {% endblock %}
+</head>
+<body>
+{% include 'utilities/navbar.jinja2' %}
+
+{% block content %}
+
+
+{% endblock %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <script>
+            {% for category,message in messages %}
+                new Toast({
+                    message: '{{ message }}',
+                    type: '{{ category }}'
+                });
+            {% endfor %}
+        </script>
+    {% endif %}
+{% endwith %}
+
+<script src="{{ url_for('static',filename='js/jquery-3.5.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/navbar.js') }}"></script>
+{% block custom_js %}
+
+{% endblock %}
+</body>
+</html>

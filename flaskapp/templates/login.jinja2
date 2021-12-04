@@ -1,0 +1,39 @@
+{% extends 'utilities/layout.jinja2' %} {% block content %}
+
+<section class='section'>
+<div class='box'>
+<form id="loginForm" method="post" action="/login">
+  <div class="field">
+    <label class="label">Username</label>
+    <div class="control">
+      <input
+        class="input is-primary"
+        type="text"
+        placeholder="Username"
+        name="username"
+        required
+      />
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Password</label>
+    <div class="control">
+      <input
+        class="input is-primary"
+        type="password"
+        placeholder="********"
+        name="password"
+        required
+      />
+    </div>
+  </div>
+  <button type="submit" class="button is-primary">Log in</button>
+</form>
+</div>
+
+
+</section>
+
+
+{% endblock %}

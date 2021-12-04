@@ -1,0 +1,63 @@
+{% extends 'utilities/layout.jinja2' %} {% block custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static',filename='node_modules/datatables.net-dt/css/jquery.dataTables.min.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="section">
+    <div class='box'>
+    <form method="post" action="/admin/months/add">
+        <div class="field">
+          <label class="label">Ay Adı</label>
+          <div class="control">
+            <input
+            type="text"
+            class="input is-primary"
+            id="adminMonthName"
+            name="month_name"
+          />
+          </div>
+        </div>
+        <button type="submit" class="button is-primary">Ay Ekle</button>
+      </form>
+      </div>
+
+
+</section>
+
+  <section class="section">
+      <div class='box'>
+      <p class="title is-4">Aylar</p>
+      <table id="monthsTable" class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Ay Adı</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for month in months %}
+          <tr>
+            <td>{{ month.id }}</td>
+            <td>{{ month.name }}</td>
+            <td>
+              <form action="/admin/months/delete/{{ month.id }}" method="post">
+                <button type="submit" class="button is-danger is-small">Sil</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+  </section>
+
+{% endblock %} {% block custom_js %}
+<script src="{{ url_for('static',filename='node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    $("#monthsTable").DataTable();
+  });
+</script>
+{% endblock %}

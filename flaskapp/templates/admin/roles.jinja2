@@ -1,0 +1,74 @@
+{% extends 'utilities/layout.jinja2' %} {% block custom_css %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static',filename='node_modules/datatables.net-dt/css/jquery.dataTables.min.css') }}"
+/>
+{% endblock %} {% block content %}
+<section class="section">
+    <div class='box'>
+    <form method="post" action="/admin/roles/add">
+        <div class="field">
+          <label class="label">Rol Adı</label>
+          <div class="control">
+            <input
+            type="text"
+            class="input is-primary"
+            id="adminRoleName"
+            name="role_name"
+          />
+          </div>
+
+          <p>
+              <b>Rol adları dash CONFIG sabitleri içerisindeki APP_URL
+              değişkenleri ile aynı olmalıdır</b>
+              </p>
+        </div>
+        <button type="submit" class="button is-primary">Rol Ekle</button>
+      </form>
+      </div>
+
+
+</section>
+
+  <section class="section">
+      <div class='box'>
+      <p class="title is-4">Roller</p>
+      <table id="rolesTable" class="table is-hoverable is-fullwidth">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Rol Adı</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for role in roles %}
+          <tr>
+            <td>{{ role.id }}</td>
+            <td>{{ role.name }}</td>
+            <td>
+              <form action="/admin/roles/detail/{{ role.id }}" method="get">
+                <button type="submit" class="button is-primary is-small">Detay</button>
+              </form>
+            </td>
+            <td>
+             <form action="/admin/roles/delete/{{ role.id }}" method="post">
+                <button type="submit" class="button is-danger is-small">Sil</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      </div>
+  </section>
+
+{% endblock %} {% block custom_js %}
+<script src="{{ url_for('static',filename='node_modules/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script>
+  $(document).ready(function () {
+    $("#rolesTable").DataTable();
+  });
+</script>
+{% endblock %}

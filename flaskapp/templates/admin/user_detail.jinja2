@@ -1,0 +1,74 @@
+{% extends 'utilities/layout.jinja2' %} {% block content %}
+<section class="section">
+<div class='box'>
+<p class='title is-4'> Kullanıcı Detayları </p>
+  <form method="post" action="/admin/users/detail/{{ user.id }}">
+    <div class="field">
+      <label class="label">Kullanıcı Adı</label>
+      <div class="control">
+        <input
+          type="text"
+          class="input is-primary"
+          id="adminUsername"
+          name="username"
+          value="{{ user.username }}"
+        />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Parola</label>
+      <div class="control">
+        <input
+          type="password"
+          class="input is-primary"
+          id="adminPassword"
+          name="password"
+        />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Admin mi?</label>
+      <div class="select">
+        <select id="adminAdmin" name="is_admin">
+          {% if user.is_admin %}
+          <option value="True" selected>Evet</option>
+          <option value="False">Hayır</option>
+          {% else %}
+          <option value="False" selected>Hayır</option>
+          <option value="True">Evet</option>
+          {% endif %}
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Roller</label>
+      <div class="select is-multiple">
+        <select id="userRoles" name="roles" multiple>
+          {% for role in roles %}
+          <option
+            value="{{ role.id }}"
+            {%
+            if
+            role
+            in
+            user.roles
+            %}
+            selected
+            {%
+            endif
+            %}
+          >
+            {{ role.name }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="button is-primary">Kullanıcı Güncelle</button>
+  </form>
+  </div>
+</section>
+
+{% endblock %}

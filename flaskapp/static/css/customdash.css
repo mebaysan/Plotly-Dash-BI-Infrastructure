@@ -1,0 +1,10 @@
+.baysan-download-btn {
+  position: relative;
+  overflow: hidden;
+  left: -170px;
+}
+
+.baysan-download-btn:hover {
+  transition: 2s;
+  left: 0;
+}
